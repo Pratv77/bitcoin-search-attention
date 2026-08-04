@@ -61,9 +61,12 @@ def identify_events(
     )
     frame["rise_from_trailing_low"] = frame["price_usd"] / frame["trailing_low"] - 1
     frame["at_or_above_threshold"] = frame["rise_from_trailing_low"].ge(threshold)
-    frame["is_crossing"] = frame["at_or_above_threshold"] & ~frame[
-        "at_or_above_threshold"
-    ].shift(1, fill_value=False)
+    prior_threshold_state_observed = frame["rise_from_trailing_low"].shift(1).notna()
+    frame["is_crossing"] = (
+        prior_threshold_state_observed
+        & frame["at_or_above_threshold"]
+        & ~frame["at_or_above_threshold"].shift(1, fill_value=False)
+    )
 
     crossings = frame.loc[
         frame["is_crossing"],

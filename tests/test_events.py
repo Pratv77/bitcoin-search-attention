@@ -16,7 +16,7 @@ def weekly_prices(values: list[float]) -> pd.DataFrame:
 
 
 def test_trigger_requires_crossing_from_below() -> None:
-    prices = weekly_prices([10, 10, 10, 19, 20, 21, 22, 23])
+    prices = weekly_prices([10, 10, 10, 19, 20, 21, 22, 23, 24])
 
     events, crossings = identify_events(
         prices, threshold=1.0, trailing_weeks=3, merge_window_weeks=2
@@ -27,8 +27,19 @@ def test_trigger_requires_crossing_from_below() -> None:
     assert events.loc[0, "trigger_week"] == prices.loc[4, "week"]
 
 
+def test_first_computable_threshold_state_is_not_a_crossing() -> None:
+    prices = weekly_prices([10, 10, 10, 20, 21, 22])
+
+    events, crossings = identify_events(
+        prices, threshold=1.0, trailing_weeks=3, merge_window_weeks=2
+    )
+
+    assert events.empty
+    assert crossings.empty
+
+
 def test_nearby_recrossing_is_merged() -> None:
-    prices = weekly_prices([10, 10, 10, 20, 15, 20, 15, 20])
+    prices = weekly_prices([10, 10, 10, 19, 20, 10, 20])
 
     events, crossings = identify_events(
         prices, threshold=1.0, trailing_weeks=3, merge_window_weeks=5
@@ -40,7 +51,7 @@ def test_nearby_recrossing_is_merged() -> None:
 
 
 def test_crossing_after_merge_window_starts_new_event() -> None:
-    prices = weekly_prices([10, 10, 10, 20, 15, 15, 15, 30])
+    prices = weekly_prices([10, 10, 10, 19, 20, 10, 15, 15, 10, 20])
 
     events, crossings = identify_events(
         prices, threshold=1.0, trailing_weeks=3, merge_window_weeks=4

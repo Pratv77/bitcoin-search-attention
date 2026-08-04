@@ -7,10 +7,22 @@ silently replaced; each retrieval gets a dated filename and a manifest entry.
 
 - Coin ID: `bitcoin`
 - Quote currency: `usd`
-- Endpoint: to be finalized after confirming the available API tier
-- Retrieval date/time (UTC): pending
-- Returned coverage: pending
-- Raw filename and SHA-256: pending
+- Retrieval method: official CoinGecko Historical Data CSV export
+- Historical Data page: `https://www.coingecko.com/en/coins/bitcoin/historical_data`
+- API limitation: the free Demo API provides at most one year of historical
+  market-chart data; see `docs/deviations.md`
+- Retrieval date/time (UTC): 2026-08-04 19:41:39 UTC
+- Returned coverage: 2013-04-28 through 2026-08-04; the current-day row has
+  no closing price and is excluded before weekly aggregation
+- Raw filename:
+  `coingecko_btc_usd_2013-04-28_2026-08-04_retrieved_2026-08-04.csv`
+- SHA-256:
+  `b659d8720185a5fcfe3767972f1e585f3f4bdffb49670ce5fa6a8c40ae67a74e`
+- Completed weekly coverage: 693 Sunday-ending weeks from 2013-04-28 through
+  the data-freeze week of 2026-08-02
+- Validation findings: no duplicated dates, no nonpositive closing prices,
+  three isolated missing calendar dates (2013-06-04, 2015-01-28, and
+  2022-05-23), and no missing Sunday close caused by those gaps
 
 ## Google Trends
 
@@ -25,4 +37,3 @@ silently replaced; each retrieval gets a dated filename and a manifest entry.
 
 The limited-access Google Trends API is not assumed to be available and its
 rolling five-year window is insufficient for the intended full-history study.
-
