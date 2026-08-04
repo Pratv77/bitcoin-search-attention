@@ -66,6 +66,8 @@ def build_trends_windows(
     windows.insert(
         0, "query_id", [f"GT{value:02d}" for value in range(1, len(windows) + 1)]
     )
+    windows["query_start"] = windows["window_start"] - timedelta(days=6)
+    windows["query_end"] = windows["window_end"]
     return windows
 
 

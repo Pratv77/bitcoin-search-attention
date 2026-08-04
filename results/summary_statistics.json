@@ -1,0 +1,36 @@
+{
+  "primary": {
+    "qualifying_events": 7,
+    "median_lag_weeks": -5.0,
+    "lag_q1_weeks": -7.5,
+    "lag_q3_weeks": -2.0,
+    "minimum_lag_weeks": -9,
+    "maximum_lag_weeks": 3,
+    "negative_lags": 5,
+    "zero_lags": 1,
+    "positive_lags": 1,
+    "negative_proportion": 0.7142857142857143,
+    "zero_proportion": 0.14285714285714285,
+    "positive_proportion": 0.14285714285714285,
+    "at_or_after_zero_proportion": 0.2857142857142857,
+    "median_price_position_pct": -15.10095929733315,
+    "boundary_flagged_events": 3
+  },
+  "alternate": {
+    "qualifying_events": 7,
+    "median_lag_weeks": -6.0,
+    "lag_q1_weeks": -11.0,
+    "lag_q3_weeks": 2.0,
+    "minimum_lag_weeks": -15,
+    "maximum_lag_weeks": 12,
+    "negative_lags": 4,
+    "zero_lags": 0,
+    "positive_lags": 3,
+    "negative_proportion": 0.5714285714285714,
+    "zero_proportion": 0.0,
+    "positive_proportion": 0.42857142857142855,
+    "at_or_after_zero_proportion": 0.42857142857142855,
+    "median_price_position_pct": -8.130165566141322,
+    "boundary_flagged_events": 1
+  }
+}

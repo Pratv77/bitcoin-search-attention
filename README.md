@@ -5,9 +5,9 @@ peaks before, during, or after objectively defined local price peaks.
 
 ## Status
 
-**Protocol locked.** The predetermined analytical decisions are recorded in
-`research_protocol.md`. Any later methodological change must be documented as a
-protocol deviation rather than silently replacing the original rule.
+**Analysis complete.** The predetermined analytical decisions are recorded in
+`research_protocol.md`; the source-access change is disclosed in
+`docs/deviations.md`.
 
 ## Research question
 
@@ -30,32 +30,46 @@ src/bitcoin_search_attention/
 tests/           Automated tests for the analytical rules
 ```
 
-## Planned workflow
+## Result
 
-1. Lock and commit the research protocol.
-2. Collect and preserve price and attention data.
-3. Validate dates, weekly alignment, missing values, and duplicates.
-4. Identify events using the locked rule.
-5. Measure price and attention peaks.
-6. Produce the predetermined summaries and figures.
-7. Repeat the full pipeline using the single alternate threshold.
-8. Export final assets for the portfolio case-study page.
+The primary 100% threshold produced 7 qualifying events. Search attention
+peaked before the local price peak in 5 events, in the same week in 1 event,
+and after it in 1 event. The median lag was **-5 weeks** (IQR -7.5 to -2), so
+the result does not support the predetermined hypothesis that attention would
+generally peak at or after price.
+
+At the locked 70% sensitivity threshold, 4 of 7 lags were negative and the
+median lag was **-6 weeks**. The pattern remained earlier on average, although
+it was more mixed. Three primary events and one alternate event have a peak on
+an analysis-window boundary and must be interpreted cautiously.
 
 ## Data sources
 
-- Bitcoin USD market data: CoinGecko API.
+- Bitcoin USD market data: CoinGecko official Historical Data CSV export.
 - Search interest: Google Trends, using official Explore exports for historical
   coverage. Google Trends values measure relative, normalized interest rather
   than absolute search volume.
 
-Source settings, retrieval dates, and raw-file checksums will be recorded in a
-collection manifest. Credentials must stay in a local `.env` file and are never
-committed.
+Source settings, retrieval dates, and raw-file checksums are recorded in
+`docs/data_sources.md` and `data/raw/google_trends/manifest.json`.
 
 ## Reproduction
 
-Reproduction commands will be added as each pipeline stage is implemented. The
-target environment is Python 3.13 or newer.
+From an environment with the project and development dependencies installed,
+run:
+
+```powershell
+python scripts/prepare_prices.py
+python scripts/detect_price_events.py
+python scripts/prepare_trends.py
+python scripts/analyze_events.py
+python scripts/create_figures.py
+pytest
+```
+
+The target environment is Python 3.13 or newer. The official raw Google Trends
+exports are already preserved in the repository, so reproduction does not
+require an automated Trends client.
 
 ## Portfolio case study
 

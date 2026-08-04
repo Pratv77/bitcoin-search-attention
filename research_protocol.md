@@ -171,3 +171,12 @@ used. Results will be reported even if they contradict the hypothesis.
 4. The worldwide Bitcoin **topic**, rather than the literal search term.
 5. Weekly closing price, rather than weekly mean price.
 6. Earliest-tied-maximum handling with an explicit tie flag.
+
+## Observed source coverage (added after collection)
+
+The untouched CoinGecko export covers 2013-04-28 through 2026-08-04, with 693
+complete Sunday-ending price weeks through the 2026-08-02 data freeze. The
+earliest Google Trends event export begins 2015-09-07. Eligible primary triggers
+run from 2015-12-13 through 2025-07-13, and every retained event has all 25
+required price and search weeks. These observed dates instantiate the locked
+coverage rule; they do not change it.

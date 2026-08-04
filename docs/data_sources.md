@@ -27,13 +27,23 @@ silently replaced; each retrieval gets a dated filename and a manifest entry.
 ## Google Trends
 
 - Access method: official Google Trends Explore CSV export
-- Concept: Bitcoin topic; exact topic identifier pending pre-lock confirmation
+- Concept: Bitcoin topic, identifier `/m/05p0rrx` (Bitcoin, Cryptocurrency)
 - Geography: worldwide
 - Category: all categories
 - Search property: Web Search
-- Retrieval date/time (UTC): pending
-- Export frequency and aggregation: pending validation of a test export
-- Raw filenames and SHA-256 values: pending
+- Retrieval date (UTC): 2026-08-04
+- Export design: 14 fixed event-query windows, each spanning Monday through
+  Sunday for 175 daily observations and exactly 25 complete Sunday-ending weeks
+- Weekly aggregation: arithmetic mean of the seven daily interest values in
+  each Sunday-ending week
+- Validated output: 350 event-week observations; no missing values, duplicate
+  dates, incomplete weeks, or values outside the 0-100 index range
+- Raw filenames, date ranges, row counts, validation fields, and SHA-256 values:
+  `data/raw/google_trends/manifest.json`
+
+Each export is independently normalized by Google Trends. The analysis therefore
+uses only the timing of the peak inside each event window and does not compare
+interest magnitudes across different exports.
 
 The limited-access Google Trends API is not assumed to be available and its
 rolling five-year window is insufficient for the intended full-history study.
