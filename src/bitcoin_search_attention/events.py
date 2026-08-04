@@ -1,9 +1,8 @@
 """Objective Bitcoin price-surge event identification."""
 
-from __future__ import annotations
+from datetime import timedelta
 
 import pandas as pd
-
 
 REQUIRED_PRICE_COLUMNS = {"week", "price_usd"}
 
@@ -27,7 +26,7 @@ def validate_weekly_prices(prices: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("Prices must be positive")
 
     week_steps = result["week"].diff().dropna()
-    if not week_steps.eq(pd.Timedelta(weeks=1)).all():
+    if not week_steps.eq(timedelta(weeks=1)).all():
         raise ValueError("Weekly price dates must be consecutive seven-day steps")
 
     return result
@@ -79,7 +78,7 @@ def identify_events(
         crossing_week = crossing["week"]
         if active_until is None or crossing_week > active_until:
             event_id += 1
-            active_until = crossing_week + pd.Timedelta(weeks=merge_window_weeks - 1)
+            active_until = crossing_week + timedelta(weeks=merge_window_weeks - 1)
             crossings.at[row_index, "retained_trigger"] = True
         crossings.at[row_index, "event_id"] = event_id
 

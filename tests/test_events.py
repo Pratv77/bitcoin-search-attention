@@ -7,7 +7,9 @@ from bitcoin_search_attention.events import identify_events, validate_weekly_pri
 def weekly_prices(values: list[float]) -> pd.DataFrame:
     return pd.DataFrame(
         {
-            "week": pd.date_range("2020-01-05", periods=len(values), freq="W-SUN", tz="UTC"),
+            "week": pd.date_range(
+                "2020-01-05", periods=len(values), freq="W-SUN", tz="UTC"
+            ),
             "price_usd": values,
         }
     )
