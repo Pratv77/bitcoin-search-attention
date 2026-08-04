@@ -1,0 +1,41 @@
+# Local secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Generated and temporary files
+data/interim/*
+data/processed/*
+figures/*
+results/*
+tmp/
+*.log
+
+# Preserve empty output directories
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!figures/.gitkeep
+!results/.gitkeep
+
+# Raw data is intentionally not ignored globally. Review source licensing and
+# file size before committing individual raw exports.
+
