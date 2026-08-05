@@ -1,5 +1,3 @@
-"""Event-level peak measurements and predetermined summaries."""
-
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass

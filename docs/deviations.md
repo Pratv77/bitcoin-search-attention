@@ -1,19 +1,9 @@
-# Protocol deviations
+# Protocol deviation
 
-This file retains a dated, append-only explanation of changes made after the
-protocol was locked.
+## CoinGecko retrieval method
 
-## 2026-08-04 — CoinGecko retrieval method
-
-The locked protocol specified collection through the CoinGecko API. After the
-protocol was committed, current official access limits were verified: the free
-Demo API provides at most one year of historical market-chart data, while the
-study requires full history. The price source remains CoinGecko, but the data
-will be retrieved through CoinGecko's official Historical Data CSV export,
-which CoinGecko documents as the free method for a one-off historical download.
-
-This is a source-access change only. It does not alter the USD price field,
-weekly closing-price construction, study period rule, event definition,
-thresholds, observation windows, peak rules, or predetermined summaries. The
-untouched export, retrieval time, selected date range, and SHA-256 checksum will
-be preserved.
+The locked protocol named the CoinGecko API, but its free historical coverage
+was too short for the study. The price data were instead downloaded through
+CoinGecko's official Historical Data CSV export. The source remained CoinGecko
+Bitcoin/USD, and no event definitions, windows, measurements, or analysis rules
+changed.

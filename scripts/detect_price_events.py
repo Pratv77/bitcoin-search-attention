@@ -1,5 +1,3 @@
-"""Detect locked price events and create Google Trends collection windows."""
-
 from datetime import timedelta
 from pathlib import Path
 

@@ -1,5 +1,3 @@
-"""Objective Bitcoin price-surge event identification."""
-
 from datetime import timedelta
 
 import pandas as pd

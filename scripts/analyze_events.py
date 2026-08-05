@@ -1,5 +1,3 @@
-"""Run the locked event measurements and predetermined summaries."""
-
 import json
 from pathlib import Path
 

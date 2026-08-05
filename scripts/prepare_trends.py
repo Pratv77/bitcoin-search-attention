@@ -1,5 +1,3 @@
-"""Validate Google Trends exports and build weekly attention series."""
-
 import hashlib
 import json
 from dataclasses import asdict

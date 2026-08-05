@@ -1,5 +1,3 @@
-"""Validate the raw CoinGecko export and create completed weekly prices."""
-
 import json
 from dataclasses import asdict
 from pathlib import Path

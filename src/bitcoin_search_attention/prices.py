@@ -1,5 +1,3 @@
-"""Load, validate, and aggregate the CoinGecko price export."""
-
 from dataclasses import dataclass
 from datetime import timedelta
 from pathlib import Path

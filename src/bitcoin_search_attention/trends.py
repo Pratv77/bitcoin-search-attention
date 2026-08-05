@@ -1,5 +1,3 @@
-"""Load, validate, and aggregate official Google Trends exports."""
-
 from dataclasses import dataclass
 from pathlib import Path
 

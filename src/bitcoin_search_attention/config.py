@@ -1,9 +1,3 @@
-"""Locked analysis settings.
-
-These constants mirror ``research_protocol.md``. Do not change them after the
-protocol is locked without recording a deviation.
-"""
-
 from dataclasses import dataclass
 
 
