@@ -1,4 +1,4 @@
-# Search Attention Around Bitcoin Price Surges — pre-analysis protocol
+# Search Attention Around Bitcoin Price Surges
 
 ## Protocol status
 
