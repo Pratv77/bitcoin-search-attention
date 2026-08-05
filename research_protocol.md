@@ -8,7 +8,7 @@ Version: 1.0
 Prepared: 2026-08-04  
 Lock date: 2026-08-04
 
-No event-level search results, peak-lag results, or threshold comparisons were
+No event-level search results, peak-timing results, or threshold comparisons were
 examined before this document was marked **LOCKED**. Corrections after locking
 must be recorded in `docs/deviations.md`; the original rule must remain visible.
 
@@ -98,18 +98,21 @@ be introduced because of the observed result.
 - Pre-trigger period: 8 weeks.
 - Post-trigger period: 16 weeks.
 - Total window: 25 weeks including the trigger week.
-- Price-peak search area: trigger week through week +16.
-- Search-peak search area: week −8 through week +16.
+- Weeks considered for the local price maximum: trigger week through week +16.
+- Weeks considered for peak search attention: week −8 through week +16.
 - No event receives a selective extension or early termination.
 
 ## Peak and edge-case rules
 
-- Price peak: maximum weekly closing price in the price-peak search area.
-- Search peak: maximum weekly search-interest value in the full event window.
+- Local price maximum: highest weekly closing price from the trigger week through
+  week +16.
+- Peak search attention: highest weekly search-interest value in the full event
+  window.
 - Tied maxima: use the earliest tied week and record a tie flag plus the number
   of tied weeks. This deterministic choice applies to both series.
-- Price boundary flag: price peak occurs in the trigger week or week +16.
-- Search boundary flag: search peak occurs in week −8 or week +16.
+- Price boundary flag: the local price maximum occurs in the trigger week or
+  week +16.
+- Search boundary flag: peak search attention occurs in week −8 or week +16.
 - Any boundary flag limits interpretation but does not automatically exclude the
   event.
 - Missing weekly attention or price data causes exclusion under the complete-case
@@ -120,15 +123,16 @@ be introduced because of the observed result.
 
 ## Primary measurements
 
-1. **Peak lag:** search-peak week minus price-peak week, in whole weeks.
+1. **Peak timing difference:** week of peak search attention minus week of the
+   local price maximum, in whole weeks.
 2. **Price position at peak attention:**
 
-   `(price in search-peak week / local maximum price - 1) × 100`
+   `(price in the week of peak search attention / local maximum price - 1) × 100`
 
    A value of −20% means the price was 20% below the event’s local maximum when
    search attention peaked.
 
-Interpretation of lag:
+Interpretation of the peak timing difference:
 
 - Negative: search attention peaked before price.
 - Zero: both peaked in the same Sunday-ending week.
@@ -137,8 +141,8 @@ Interpretation of lag:
 ## Predetermined summaries
 
 - Number of qualifying and excluded events.
-- Median peak lag.
-- Interquartile range and full range of peak lags.
+- Median peak timing difference.
+- Interquartile range and full range of peak timing differences.
 - Counts and proportions of negative, zero, and positive lags.
 - Proportion of events at or after zero.
 - Median price position at peak attention.
@@ -149,8 +153,8 @@ Interpretation of lag:
 
 - Complete trigger and exclusion logs.
 - Final event-results table.
-- Horizontal event-level lag dot plot with a zero reference, median marker, and
-  distinguished boundary cases.
+- Horizontal event-level peak timing dot plot with a zero reference, median
+  marker, and distinguished boundary cases.
 - One event-selection illustration.
 - One annotated measurement example.
 - Two or three transparently selected illustrative event charts.
