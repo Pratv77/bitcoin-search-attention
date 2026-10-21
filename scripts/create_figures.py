@@ -16,6 +16,24 @@ TEXT_COLOR = "#172033"
 GRID_COLOR = "#D8DEE9"
 
 
+def describe_lag(lag: int) -> str:
+    if lag == 0:
+        return "Search and price peaked the same week"
+    direction = "before" if lag < 0 else "after"
+    weeks = "week" if abs(lag) == 1 else "weeks"
+    return f"Search peaked {abs(lag)} {weeks} {direction} price"
+
+
+def describe_boundary(flag: str) -> str:
+    if flag == "none":
+        return ""
+    if "price" in flag and "search" in flag:
+        return "Both peaks on window edge"
+    if "price" in flag:
+        return "Price peak on window edge"
+    return "Search peak on window edge"
+
+
 def relative_week(weeks: pd.Series, trigger: pd.Timestamp) -> pd.Series:
     return (weeks - trigger).dt.days // 7
 
@@ -89,14 +107,14 @@ def plot_event_chart(
     price_axis.axvspan(-8, -0.05, color=GRID_COLOR, alpha=0.22)
     price_axis.set_xlim(-8, 16)
     price_axis.set_xticks(np.arange(-8, 17, 4))
-    price_axis.set_xlabel("Weeks relative to trigger")
+    price_axis.set_xlabel("Weeks from rally start")
     price_axis.set_ylabel("Bitcoin weekly close (USD)", color=PRICE_COLOR)
     search_axis.set_ylabel("Google search interest (0–100)", color=SEARCH_COLOR)
     search_axis.set_ylim(0, 105)
     price_axis.grid(axis="y", color=GRID_COLOR, linewidth=0.7)
     price_axis.set_title(
-        f"{result['event_id']} · Trigger {result['trigger_week'].date()} · "
-        f"Lag {result['peak_lag_weeks']:+d} weeks",
+        f"{result['event_id']} · Rally started {result['trigger_week'].date()} · "
+        f"{describe_lag(int(result['peak_lag_weeks']))}",
         loc="left",
         color=TEXT_COLOR,
         fontweight="bold",
@@ -104,11 +122,11 @@ def plot_event_chart(
     price_axis.text(
         0.99,
         0.02,
-        f"Boundary: {result['boundary_flag']}",
+        describe_boundary(result["boundary_flag"]),
         transform=price_axis.transAxes,
         ha="right",
         va="bottom",
-        color=BOUNDARY_COLOR if result["boundary_flag"] != "none" else TEXT_COLOR,
+        color=BOUNDARY_COLOR,
         fontsize=9,
     )
     for axis in (price_axis, search_axis):
@@ -133,7 +151,7 @@ def plot_lag_dotplot(results: pd.DataFrame, destination: Path) -> None:
         y_positions[~boundary],
         s=70,
         color=SEARCH_COLOR,
-        label="Complete interior peak",
+        label="Both peaks inside window",
         zorder=3,
     )
     axis.scatter(
@@ -144,7 +162,7 @@ def plot_lag_dotplot(results: pd.DataFrame, destination: Path) -> None:
         facecolor="white",
         edgecolor=BOUNDARY_COLOR,
         linewidth=1.8,
-        label="Boundary flagged",
+        label="Peak on window edge",
         zorder=3,
     )
     for index, lag in enumerate(ordered["peak_lag_weeks"]):
@@ -164,9 +182,9 @@ def plot_lag_dotplot(results: pd.DataFrame, destination: Path) -> None:
             for event_id, date in zip(ordered["event_id"], ordered["trigger_week"])
         ]
     )
-    axis.set_xlabel("Search peak minus price peak (weeks)")
+    axis.set_xlabel("Weeks search peaked before (−) or after (+) price")
     axis.set_title(
-        "Peak-attention lag across primary Bitcoin surge events",
+        "Weeks between the search peak and price peak in each rally",
         loc="left",
         color=TEXT_COLOR,
         fontweight="bold",
@@ -174,7 +192,7 @@ def plot_lag_dotplot(results: pd.DataFrame, destination: Path) -> None:
     axis.text(
         median,
         0.35,
-        f" Median = {median:+.0f} weeks",
+        f" Typical gap: {median:+.0f} weeks",
         color=SEARCH_COLOR,
         va="bottom",
         fontsize=9,
