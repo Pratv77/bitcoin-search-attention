@@ -59,6 +59,9 @@ were examined.
 Python 3.13 or newer is required. The raw source exports used in the study are
 included in the repository.
 
+On Windows, some raw data file names are long enough to fail on checkout. Run
+`git config --global core.longpaths true` before cloning.
+
 ```text
 python -m pip install -e ".[dev]"
 python scripts/prepare_prices.py
